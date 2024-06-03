@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const router = express.Router();
 const Task = require("../models/task");
 const SubTask = require("../models/subTask");
+const ObjectId = require('mongodb').ObjectId;
 
 const authMiddleware = require("../middleware/auth");
 
@@ -45,16 +46,27 @@ router.get("/", authMiddleware, async (req, res) => {
     const tasks = await Task.aggregate(
       [
         {
+          $match: {
+            user_id: new ObjectId(
+              user.userId
+            ),
+            is_deleted: false
+          }
+        },
+        {
           $lookup: {
             from: 'subtasks',
             localField: '_id',
             foreignField: 'task_id',
-            as: 'subtasks'
+            as: 'subtasks',
+            pipeline: [
+              { $match: { is_deleted: false } }
+            ]
           }
         }
       ],
       { maxTimeMS: 60000, allowDiskUse: true }
-    ); 
+    );
 
 
     return res.status(200).json({ tasks });
@@ -68,6 +80,9 @@ router.get("/", authMiddleware, async (req, res) => {
 router.put("/:taskId", authMiddleware, async (req, res) => {
   try {
     const { subject, status, deadline } = req.body;
+
+    let taskExist = await Task.find({_id : req.params.taskId, is_deleted: true});
+    if(taskExist.length ) return res.send({error : "Either task not found or already deleted. "}); 
 
     const updatedTask = await Task.findByIdAndUpdate(
       req.params.taskId,
@@ -96,7 +111,6 @@ router.put("/:taskId", authMiddleware, async (req, res) => {
 router.delete("/:taskId", authMiddleware, async (req, res) => {
   try {
     let taskExist = await Task.find({_id : req.params.taskId, is_deleted: true});
-    console.log(taskExist); 
     if(taskExist.length ) return res.send({error : "Either task not found or already deleted. "}); 
 
     const deletedTask = await Task.findByIdAndUpdate(
@@ -123,11 +137,15 @@ router.delete("/:taskId", authMiddleware, async (req, res) => {
 // Create subtask
 router.post("/:taskId/subtasks", authMiddleware, async (req, res) => {
   try {
-    const task_id = req.params; 
+    const {taskId} = req.params; 
     const {subject, deadline, status } = req.body;
 
+    let taskExist = await Task.find({_id : taskId, user_id : req.user.userId, is_deleted : false });
+    if(!taskExist.length ) return res.send({status:false, message : "No any task found with given taskId"}); 
+
+
     const newSubTask = new SubTask({
-      task_id,
+      task_id : new ObjectId(taskId),
       subject,
       deadline,
       status
@@ -140,7 +158,7 @@ router.post("/:taskId/subtasks", authMiddleware, async (req, res) => {
       .json({ message: "Subtask created successfully", subTask: newSubTask });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Internal server error" , message : error.message});
   }
 });
 
@@ -150,15 +168,15 @@ router.get("/:taskId/subtasks", authMiddleware, async (req, res) => {
     const user = req.user;
     const { taskId } = req.params;
 
-    let subtasksQuery = { user_id: user.id };
+    let taskExist = await Task.find({_id : taskId, user_id : user.userId, is_deleted : false });
 
-    if (taskId) {
-      subtasksQuery.task_id = taskId;
-    }
+    if(!taskExist.length ) return res.send({status:false, message : "No any task found with given taskId"}); 
+
+    let subtasksQuery = { task_id : taskId, is_deleted : false };
 
     const subtasks = await SubTask.find(subtasksQuery);
 
-    return res.status(200).json({ subtasks });
+    return res.status(200).json({ message : "Subtask fetched successfully", subtasks });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Intenal server error" });
@@ -168,6 +186,7 @@ router.get("/:taskId/subtasks", authMiddleware, async (req, res) => {
 //Update subtask
 router.put("/:subtaskId/subtasks", authMiddleware, async (req, res) => {
   try {
+    console.log("#update subtask working .... ", "req.params.subtaskId", req.params.subtaskId)
     const {subject, status ,deadline} = req.body;
 
     const updatedSubTask = await SubTask.findByIdAndUpdate(
@@ -175,8 +194,7 @@ router.put("/:subtaskId/subtasks", authMiddleware, async (req, res) => {
       {
         status,
         subject,
-        deadline,
-        updated_at: new Date()
+        deadline
       },
       { new: true }
     );
@@ -200,6 +218,8 @@ router.put("/:subtaskId/subtasks", authMiddleware, async (req, res) => {
 router.delete("/:subtaskId/subtasks", authMiddleware, async (req, res) => {
   try {
     const user = req.user;
+    let subtaskExist = await SubTask.find({_id : req.params.subtaskId, is_deleted: true});
+    if(subtaskExist.length ) return res.send({error : "Either sub-task not found or already deleted. "}); 
 
     const deletedSubTask = await SubTask.findByIdAndUpdate(
       req.params.subtaskId,

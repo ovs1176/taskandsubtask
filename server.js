@@ -8,9 +8,9 @@ const PORT = 3000;
 const authMiddleware = require('./middleware/auth');
 
 // Importing models
-const SubTask = require("./models/subTask");
-const User = require("./models/user");
-const Task = require("./models/task");
+// const SubTask = require("./models/subTask");
+// const User = require("./models/user");
+// const Task = require("./models/task");
 
 app.use(bodyParser.json());
 
