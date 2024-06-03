@@ -1,0 +1,215 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Task&SubTask",
+    "collectionId": "50689f7b-9d5a-4e03-b4e2-a4e4e01365b5",
+    "dateExported": "2024-06-03T18:36:35.876Z",
+    "version": "1.2",
+    "folders": [
+        {
+            "_id": "b100d6f7-496f-4355-beca-006f122fcf82",
+            "name": "User",
+            "containerId": "",
+            "created": "2024-06-02T06:30:15.048Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "d74ac0c1-c250-4a6a-a53e-921c5363ab23",
+            "name": "Task",
+            "containerId": "",
+            "created": "2024-06-02T06:30:22.895Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "a28782a4-01d5-47fd-8641-f8aebcc8a099",
+            "name": "SubTask",
+            "containerId": "",
+            "created": "2024-06-02T15:14:32.996Z",
+            "sortNum": 25000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "edcf22f0-30bb-42a1-84cc-4de47a8da50f",
+            "colId": "50689f7b-9d5a-4e03-b4e2-a4e4e01365b5",
+            "containerId": "a28782a4-01d5-47fd-8641-f8aebcc8a099",
+            "name": "get all subTask by taskId",
+            "url": "localhost:3000/tasks/665deaa3f8dcc86f971549d2/subtasks",
+            "method": "GET",
+            "sortNum": 5000,
+            "created": "2024-06-02T15:14:32.998Z",
+            "modified": "2024-06-03T17:53:47.967Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            }
+        },
+        {
+            "_id": "c841f13e-948a-46a9-98db-8634d2c7cec5",
+            "colId": "50689f7b-9d5a-4e03-b4e2-a4e4e01365b5",
+            "containerId": "b100d6f7-496f-4355-beca-006f122fcf82",
+            "name": "User Register",
+            "url": "localhost:3000/users/register",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-06-02T06:31:24.411Z",
+            "modified": "2024-06-03T16:04:47.823Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\" : \"Om Veer Singh\",\n  \"email\" : \"omveersingh@gmail.com\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "26efff43-d7b8-413d-a45a-0ad438910943",
+            "colId": "50689f7b-9d5a-4e03-b4e2-a4e4e01365b5",
+            "containerId": "d74ac0c1-c250-4a6a-a53e-921c5363ab23",
+            "name": "Create Task",
+            "url": "localhost:3000/tasks",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-06-02T09:31:49.140Z",
+            "modified": "2024-06-03T16:09:59.564Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"subject\" : \"update laptop\",\n  \"deadline\" : \"2024-07-05T16:37:48.244Z\",\n  \"status\" : \"TODO\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            }
+        },
+        {
+            "_id": "5173fc1d-bd8a-4b69-9d0c-40180531301c",
+            "colId": "50689f7b-9d5a-4e03-b4e2-a4e4e01365b5",
+            "containerId": "a28782a4-01d5-47fd-8641-f8aebcc8a099",
+            "name": "Create subTask",
+            "url": "localhost:3000/tasks/665deaa3f8dcc86f971549d2/subtasks",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-06-02T15:14:32.996Z",
+            "modified": "2024-06-03T17:56:37.263Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"subject\" : \"buy mobile cover\",\n  \"deadline\" : \"2022-02-26T16:37:48.244Z\",\n  \"status\" : \"TODO\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            }
+        },
+        {
+            "_id": "cbb003fd-7cad-4281-ab00-f0bd0ec3b698",
+            "colId": "50689f7b-9d5a-4e03-b4e2-a4e4e01365b5",
+            "containerId": "d74ac0c1-c250-4a6a-a53e-921c5363ab23",
+            "name": "get all task and subtask",
+            "url": "localhost:3000/tasks",
+            "method": "GET",
+            "sortNum": 15000,
+            "created": "2024-06-02T15:27:41.916Z",
+            "modified": "2024-06-02T16:05:36.376Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            }
+        },
+        {
+            "_id": "8c8966ad-09a9-4e80-9b2c-2a667ca79f65",
+            "colId": "50689f7b-9d5a-4e03-b4e2-a4e4e01365b5",
+            "containerId": "d74ac0c1-c250-4a6a-a53e-921c5363ab23",
+            "name": "Edit a Task by Id",
+            "url": "localhost:3000/tasks/665deaa3f8dcc86f971549d2",
+            "method": "PUT",
+            "sortNum": 20000,
+            "created": "2024-06-02T09:40:10.837Z",
+            "modified": "2024-06-03T16:27:34.613Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"subject\": \"buy grocery\",\n  \"deadline\": \"2024-06-06T16:37:48.244Z\",\n  \"status\": \"IN-PROGRESS\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            }
+        },
+        {
+            "_id": "44597f57-18b3-4b55-b5ac-bfd4a847c921",
+            "colId": "50689f7b-9d5a-4e03-b4e2-a4e4e01365b5",
+            "containerId": "b100d6f7-496f-4355-beca-006f122fcf82",
+            "name": "User Login",
+            "url": "localhost:3000/users/login",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-06-02T14:46:31.850Z",
+            "modified": "2024-06-03T17:54:05.081Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\" : \"omveersingh@gmail.com\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "3119786a-b0a7-4d51-aec2-2cd467c915a3",
+            "colId": "50689f7b-9d5a-4e03-b4e2-a4e4e01365b5",
+            "containerId": "a28782a4-01d5-47fd-8641-f8aebcc8a099",
+            "name": "Edit a subTask by Id",
+            "url": "localhost:3000/tasks/665e03d7bb24707f45f83b18/subtasks",
+            "method": "PUT",
+            "sortNum": 20000,
+            "created": "2024-06-02T15:14:32.997Z",
+            "modified": "2024-06-03T18:06:08.481Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"subject\" : \"buy mobile sim1\",\n  \"deadline\" : \"2022-02-26T16:37:48.244Z\",\n  \"status\" : \"TODO\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            }
+        },
+        {
+            "_id": "f6893bc0-a662-4988-a4c3-90e270f79d24",
+            "colId": "50689f7b-9d5a-4e03-b4e2-a4e4e01365b5",
+            "containerId": "d74ac0c1-c250-4a6a-a53e-921c5363ab23",
+            "name": "Delete a Task by Id",
+            "url": "localhost:3000/tasks/665dead7f8dcc86f971549d6",
+            "method": "DELETE",
+            "sortNum": 30000,
+            "created": "2024-06-02T15:03:44.088Z",
+            "modified": "2024-06-03T16:18:17.470Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            }
+        },
+        {
+            "_id": "3bd2fd55-7116-4300-a0a3-1e550ddf9004",
+            "colId": "50689f7b-9d5a-4e03-b4e2-a4e4e01365b5",
+            "containerId": "a28782a4-01d5-47fd-8641-f8aebcc8a099",
+            "name": "Delete a subTask by Id",
+            "url": "localhost:3000/tasks/665e03d7bb24707f45f83b18/subtasks",
+            "method": "DELETE",
+            "sortNum": 30000,
+            "created": "2024-06-02T15:14:32.999Z",
+            "modified": "2024-06-03T18:09:28.365Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            }
+        }
+    ],
+    "ref": "cf9CDe1E2KT16-Z1P0F46AZ1k1Ajtn3F97w308-gw9XLTKF_N-sHQd7npkp2-lSh4_W5UgjcbK8vuQH_0Liy2g"
+}
